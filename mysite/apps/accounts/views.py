@@ -6,16 +6,12 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login
 
 
-is_logined = False
-
-
 class MySiteLoginView(LoginView):
 	template_name ='accounts/login.html'
 	form_class = LoginForm
 	success_url = reverse_lazy('main')
 
 	def get_success_url(self):
-		is_logined = True #По моему это в другом месте должно быть
 		return self.success_url
 
 	def get_context_data(self, *args, **kwargs):
@@ -48,5 +44,4 @@ class RegisterUserView(CreateView):
 		password = form.cleaned_data["password"]
 		aut_user = authenticate(username = username, password = password)
 		login(self.request, aut_user)
-		is_logined = True
 		return form_valid
