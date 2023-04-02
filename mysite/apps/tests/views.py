@@ -40,7 +40,6 @@ class DepartmentsView(ListView):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Кафедры'
 		context['department'] = Department.objects.order_by('id')
-		print(context['department'])
 
 		return context
 
