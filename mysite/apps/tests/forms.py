@@ -27,19 +27,18 @@ class TestForm(ModelForm):
             'perfect': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Отлично'}),
             'difficulty': forms.Select(attrs={'class': 'form-control', 'placeholder': 'Сложность'}),
         }
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)       
         self.fields['department'].widget = forms.HiddenInput()
         self.fields['teacher'].widget = forms.HiddenInput()
         self.fields['subject'].widget = forms.HiddenInput()
 
+
 class QuestionForm(ModelForm):
-
-
     class Meta:
         model = Question
         fields = '__all__'
-
 
         widgets = {
             'test': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название теста','hidden': True }),
@@ -55,14 +54,15 @@ class QuestionForm(ModelForm):
         # self.fields['num'].widget = forms.HiddenInput()
         # self.fields['test'].widget = forms.HiddenInput()
         # self.fields['answer_count'].widget = forms.HiddenInput()
+
         
 class QuestionSetForm(ModelForm):
     class Meta:
         model = Question
         fields = ('__all__')
 
-QuestionFormset = modelformset_factory(Question, form = QuestionForm, extra=0)     
 
+QuestionFormset = modelformset_factory(Question, form = QuestionForm, extra=0)     
 
 
 class AnswerForm(ModelForm):
@@ -83,10 +83,11 @@ class AnswerForm(ModelForm):
         # self.fields['num'].widget = forms.HiddenInput()
         # self.fields['question'].widget = forms.HiddenInput()
 
+
 class AnswerSetForm(forms.ModelForm):
     class Meta:
         model = Question
         fields = ('__all__')
 
-AnswerFormset = formset_factory(AnswerForm, extra=1)     
 
+AnswerFormset = formset_factory(AnswerForm, extra=1)

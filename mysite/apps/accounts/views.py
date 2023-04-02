@@ -6,6 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login
 
+
 class MySiteLoginView(LoginView):
 	template_name ='accounts/login.html'
 	form_class = LoginForm
@@ -21,10 +22,8 @@ class MySiteLoginView(LoginView):
 		return context
 
 
-
 class MySiteLogout(LogoutView):
 	next_page = reverse_lazy('main')
-
 
 
 class RegisterUserView(CreateView):
@@ -47,10 +46,3 @@ class RegisterUserView(CreateView):
 		aut_user = authenticate(username = username, password = password)
 		login(self.request,aut_user)
 		return form_valid
-
-
-
-
-
-	
-	
