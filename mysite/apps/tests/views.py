@@ -23,11 +23,11 @@ class MainView(CreateView):
 
 	def get(self, request, *args, **kwargs):
 		self.object = None	
-		
 		FormsetQuestion = formset_factory(QuestionForm)
 		FormsetAnswer = formset_factory(AnswerForm)
 		form = FormsetQuestion(prefix='question')
 		form_answer = FormsetAnswer(prefix='answer')
+
 		return self.render_to_response(
 					self.get_context_data(form=form, form_answer=form_answer))
 
@@ -40,6 +40,7 @@ class DepartmentsView(ListView):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Кафедры'
 		context['department'] = Department.objects.order_by('id')
+
 		return context 
 
 

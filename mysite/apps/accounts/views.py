@@ -18,6 +18,7 @@ class MySiteLoginView(LoginView):
 		context = super().get_context_data(*args, **kwargs)
 		context['title'] = 'Авторизация'
 		print(context)
+
 		return context
 
 
@@ -36,6 +37,7 @@ class RegisterUserView(CreateView):
 		context = super().get_context_data(*args, **kwargs)
 		context['title'] = 'Регистрация'
 		print(context)
+
 		return context
 
 	def form_valid(self, form):
@@ -44,4 +46,5 @@ class RegisterUserView(CreateView):
 		password = form.cleaned_data["password"]
 		aut_user = authenticate(username = username, password = password)
 		login(self.request, aut_user)
+
 		return form_valid
