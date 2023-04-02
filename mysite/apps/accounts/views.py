@@ -1,4 +1,3 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.models import User
 from .forms import LoginForm, RegisterForm
@@ -7,12 +6,16 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth import authenticate, login
 
 
+is_logined = False
+
+
 class MySiteLoginView(LoginView):
 	template_name ='accounts/login.html'
 	form_class = LoginForm
 	success_url = reverse_lazy('main')
 
 	def get_success_url(self):
+		is_logined = True #По моему это в другом месте должно быть
 		return self.success_url
 
 	def get_context_data(self, *args, **kwargs):
@@ -44,5 +47,6 @@ class RegisterUserView(CreateView):
 		username = form.cleaned_data["username"]
 		password = form.cleaned_data["password"]
 		aut_user = authenticate(username = username, password = password)
-		login(self.request,aut_user)
+		login(self.request, aut_user)
+		is_logined = True
 		return form_valid

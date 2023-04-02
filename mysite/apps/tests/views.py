@@ -15,12 +15,10 @@ def error(request):
 
 class MainView(CreateView):
 	template_name = 'tests/index.html'
-	model = Teacher                       # надо потом что-то как-то это убрать
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Главная'
-		context['teacher'] = Teacher.objects.order_by('id')
 		return context
 
 	def get(self, request, *args, **kwargs):
@@ -190,6 +188,7 @@ def save_test_view(request, pk):
 class AllSubjectsView(ListView):
 	model = Subject
 	template_name = 'tests/allsubjects.html'
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Предметы'
@@ -204,6 +203,7 @@ class AllSubjectsView(ListView):
 class ProfileView(LoginRequiredMixin,ListView):
 	model = Teacher
 	template_name = 'tests/profile.html'
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Личный кабинет'
@@ -218,6 +218,7 @@ class ProfileView(LoginRequiredMixin,ListView):
 class TestAddView(LoginRequiredMixin,CreateView):
 	form_class = TestForm	
 	template_name = 'tests/test_add.html'
+
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Создание теста'	

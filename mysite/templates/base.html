@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul id="navigation">
+                <li><a href="{% url 'main' %}">Главная</a></li>
+                <li><a href="{% url 'alltests' %}">Тесты</a></li>
+                <li><a href="{% url 'allsubjects' %}">Предметы</a></li>
+                <li><a href="{% url 'departments' %}">Кафедры</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}">Личный кабинет</a></li>
+                    <li><a href="{% url 'MySiteLogout' %}">Выйти</a></li>
+                {% else %}
+                    <li><a href="{% url 'RegisterUserView' %}">Регистрация</a></li>
+                    <li><a href="{% url 'MySiteLoginView' %}">Войти</a></li>
+                {% endif %}
+            </ul>
+    </header>
+    <!-- header ends -->
+    {% block content %}{% endblock content %}
+    <footer>
+        <b>Белорусский Государственный Университет Информатики и Радиоэлектроники. Минск. 2023.</b>
+    </footer>
+</body>
+</html>
