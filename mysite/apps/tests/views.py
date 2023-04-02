@@ -40,8 +40,9 @@ class DepartmentsView(ListView):
 		context = super().get_context_data(**kwargs)
 		context['title'] = 'Кафедры'
 		context['department'] = Department.objects.order_by('id')
+		print(context['department'])
 
-		return context 
+		return context
 
 
 class DepartmentView(ListView):
@@ -53,6 +54,7 @@ class DepartmentView(ListView):
 		context['title'] = 'Кафедра'
 		context['department'] = Department.objects.order_by('id')
 		context['id_department'] = self.kwargs['id_department']
+
 		return context
 
 
@@ -66,6 +68,7 @@ class Sostav_kafView(ListView):
 		context['department'] = Department.objects.order_by('id')
 		context['teacher'] = Teacher.objects.order_by('id')
 		context['id_department'] = self.kwargs['id_department']
+
 		return context
 
 
@@ -115,6 +118,7 @@ class AllTestsView(ListView):
 		context['teacher'] = Teacher.objects.order_by('id')
 		context['subject'] = Subject.objects.order_by('id')
 		context['test'] = Test.objects.order_by('id')
+
 		return context
 
 
@@ -124,6 +128,7 @@ def test_view(request, pk):
 		'title': test.name,
 		'obj': test,
 	}
+
 	return render(request, 'tests/test.html', data)
 
 
@@ -135,6 +140,7 @@ def test_data_view(request, pk):
 		for a in q.get_answers():
 			answers.append(a.text_answer)
 		questions.append({str(q): answers})
+
 	return JsonResponse({
 			'data': questions,
 			'work_time': test.work_time,
@@ -180,6 +186,7 @@ def save_test_view(request, pk):
 				results.append({str(q): 'not answered'})
 		score_ = score * multiplier
 		Result.objects.create(test=test, user=user, rating=score_)
+
 		if score_ >= test.low:
 			return JsonResponse({'passed': True, 'score': score_, 'results': results})
 		else:
@@ -225,10 +232,12 @@ class TestAddView(LoginRequiredMixin,CreateView):
 		context['title'] = 'Создание теста'	
 		context['subjects'] = Subject.objects.filter(teacher = self.get_object())
 		context['test'] = Test.objects.order_by('id').last().id
+
 		return context
 
 	def get_object(self):		
 		teacher = get_object_or_404(Teacher, user = self.request.user)
+
 		return teacher
 
 	def get_success_url(self):	
@@ -238,6 +247,7 @@ class TestAddView(LoginRequiredMixin,CreateView):
 		self.object = form.save(commit = False)
 		# if self.object.questions_count > 1 and self.object.answer_count > 1:
 		self.object = form.save()
+
 		return redirect('questions_add',self.kwargs['id_test'])
 		# else: 
 		# 	return redirect('error')
@@ -250,8 +260,8 @@ class TestAddView(LoginRequiredMixin,CreateView):
 			initial={
 				'department': self.get_object().department,
 				'teacher': self.get_object(),
-
 				})
+
 		return self.render_to_response(
 					self.get_context_data(form=form))
 
@@ -272,16 +282,19 @@ class TestUpdateView(LoginRequiredMixin,UpdateView):
 			context['last_question'] = 0
 		elif Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first()).exists() == True:
 			context['last_question'] = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first()).last().num
+
 		return context
 
 	def get_object(self):
 		id_test = self.kwargs['id_test']		
 		test = get_object_or_404(Test, pk=id_test)
+
 		return test
 
 	def form_valid(self, form):
 		self.object = form.save(commit = False)
 		self.object = form.save()
+
 		return redirect('questions_add',self.kwargs['id_test'])
 
 	def get_success_url(self):	
@@ -295,7 +308,8 @@ class QuestionsAddView(LoginRequiredMixin,CreateView):
 	def get_object(self):
 		id_test = self.kwargs['id_test']
 		test = Test.objects.filter(pk = self.kwargs['id_test']).first()
-		question = Question.objects.all().last().id+1	
+		question = Question.objects.all().last().id+1
+
 		return question
 
 	def count(self):
@@ -323,8 +337,8 @@ class QuestionsAddView(LoginRequiredMixin,CreateView):
 			self.object.num = num_q
 			f.save()		
 			count = self.object.answer_count
-				
 			num_a = 0
+
 			for z in range(count):
 				num_a+=1
 				print(count)
@@ -333,6 +347,7 @@ class QuestionsAddView(LoginRequiredMixin,CreateView):
 				self.object.num = num_a
 				form_answer[y].save()
 				y+=1
+
 		return form_question,form_answer
 
 	def get(self, request, *args, **kwargs):
@@ -358,7 +373,7 @@ class QuestionsAddView(LoginRequiredMixin,CreateView):
 			return redirect('test_update', self.kwargs['id_test'])
 		else:
 			return redirect('error')
-		return redirect('alltests')
+		#return redirect('alltests')
 
 	def get_success_url(self):		
 		return reverse_lazy('test_update',args = [self.kwargs['id_test']])
@@ -367,18 +382,17 @@ class QuestionsAddView(LoginRequiredMixin,CreateView):
 class QuestionsUpdateView(LoginRequiredMixin,CreateView):
 	model = Question
 	form_class = QuestionSetForm
-	# template_name_suffix = '_update_form'
+	#template_name_suffix = '_update_form'
 	template_name = 'tests/questions_update.html'
 
 	def get_context_data(self, **kwargs):
 		context = super(QuestionsUpdateView, self).get_context_data(**kwargs)
 		context['test'] = Test.objects.get(pk = self.kwargs['id_test'])
 		context['formset_question'] = QuestionFormset(queryset = Question.objects.filter(test = Test.objects.get(pk = self.kwargs['id_test'])))	
-		
-
-		# context['formset_answer'] = AnswerFormset()
+		#context['formset_answer'] = AnswerFormset()
 		context['question'] = Question.objects.filter(test = Test.objects.get(pk = self.kwargs['id_test']))
-		# context['total'] = QuestionFormset(initial=Question.objects.filter(test = Test.objects.get(pk = self.kwargs['id_test'])),prefix = 'question').total_form_count()
+		#context['total'] = QuestionFormset(initial=Question.objects.filter(test = Test.objects.get(pk = self.kwargs['id_test'])),prefix = 'question').total_form_count()
+		
 		return context
 
 	# def get_object(self):
@@ -409,27 +423,27 @@ class QuestionsUpdateView(LoginRequiredMixin,CreateView):
 
 	def post(self, request, *args, **kwargs):
 		formset_question = QuestionFormset(request.POST)
-		# formset_answer = AnswerFormset(request.POST)
-		# for form in formset_question:
+		#formset_answer = AnswerFormset(request.POST)
+		#for form in formset_question:
 		print("qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq")
 		if formset_question.is_valid():
-		# if self.form_question_valid(formset_question,formset_answer):	
+		#if self.form_question_valid(formset_question,formset_answer):	
 			print("fff")
 			return self.form_valid(formset_question)
-			# return self.form_valid(formset_question)			
-			# return redirect('test_update', self.kwargs['id_test'])		
+			#return self.form_valid(formset_question)			
+			#return redirect('test_update', self.kwargs['id_test'])		
 		else:
 			print("############################")
 			print(formset_question)
 			print("############################")
 			return self.form_invalid(formset_question)
 			 
-			# return redirect('error')
-		return redirect('alltests')
+			#return redirect('error')
+			#return redirect('alltests')
 
 	def form_valid(self, formset_question):
 		formset_question.save()
-		# formset_answer.save()
+		#formset_answer.save()
 
 		return redirect('test_update', self.kwargs['id_test'])
 
@@ -460,6 +474,7 @@ class QuestionAddView(LoginRequiredMixin,CreateView):
 		id_question = self.kwargs['id_question']
 		test = get_object_or_404(Test, pk=id_test)
 		question = get_object_or_404(Question, test = test, num = id_question)
+
 		return question
 
 	def get_context_data(self, **kwargs):
@@ -467,6 +482,7 @@ class QuestionAddView(LoginRequiredMixin,CreateView):
 		context['title'] = 'Создание вопроса'	
 		context['test'] = Test.objects.filter(pk = self.kwargs['id_test']).first()
 		context['id_question'] = self.kwargs['id_question']
+
 		return context
 
 	def get_success_url(self):		
@@ -481,6 +497,7 @@ class QuestionAddView(LoginRequiredMixin,CreateView):
 		form = QuestionForm(
 			initial={'num': self.kwargs['id_question'], 'test': Test.objects.filter(pk = self.kwargs['id_test']).first()}
 			)
+
 		return self.render_to_response(
 					self.get_context_data(form=form))
 
@@ -494,7 +511,8 @@ class QuestionUpdateView(LoginRequiredMixin,UpdateView):
 		id_test = self.kwargs['id_test']
 		id_question = self.kwargs['id_question']
 		test = get_object_or_404(Test, pk=id_test)
-		question = get_object_or_404(Question, test = test, num = id_question)	
+		question = get_object_or_404(Question, test = test, num = id_question)
+
 		return question
 
 	def get_success_url(self):			
@@ -512,6 +530,7 @@ class QuestionUpdateView(LoginRequiredMixin,UpdateView):
 		elif Answer.objects.filter(question = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first(), num = self.kwargs['id_question']).first()).exists() == True:
 			context['last_answer'] = Answer.objects.filter(question = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first(), num = self.kwargs['id_question']).first()).last().num
 		context['answer'] = Answer.objects.filter(question = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first(), num = self.kwargs['id_question']).first())
+
 		return context
 
 
@@ -526,6 +545,7 @@ class AnswerAddView(LoginRequiredMixin,CreateView):
 		test = get_object_or_404(Test, pk=id_test)
 		question = get_object_or_404(Question, test = test, num = id_question)
 		answer = get_object_or_404(Answer, question = question, num = id_answer)
+
 		return answer
 
 	def get_context_data(self, **kwargs):
@@ -535,6 +555,7 @@ class AnswerAddView(LoginRequiredMixin,CreateView):
 		context['question'] = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first(), num = self.kwargs['id_question']).first()
 		context['id_question'] = self.kwargs['id_question']
 		context['id_answer'] = self.kwargs['id_answer']
+
 		return context
 
 	def get_success_url(self):	
@@ -548,6 +569,7 @@ class AnswerAddView(LoginRequiredMixin,CreateView):
 				'num': self.kwargs['id_answer'],
 				'question': Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first(), num = self.kwargs['id_question']).first()
 				})
+
 		return self.render_to_response(
 					self.get_context_data(form=form))
 
@@ -564,6 +586,7 @@ class AnswerUpdateView(LoginRequiredMixin,UpdateView):
 		test = get_object_or_404(Test, pk=id_test)
 		question = get_object_or_404(Question, test = test, num = id_question)
 		answer = get_object_or_404(Answer, question = question, num = id_answer)
+
 		return answer
 
 	def get_success_url(self):	
@@ -576,4 +599,5 @@ class AnswerUpdateView(LoginRequiredMixin,UpdateView):
 		context['test'] = Test.objects.filter(pk = self.kwargs['id_test']).first()
 		context['question'] = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first(), num = self.kwargs['id_question']).first()
 		context['id_answer'] = self.kwargs['id_answer']
+
 		return context
