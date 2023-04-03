@@ -122,7 +122,7 @@ class AllTestsView(ListView):
 
 
 def test_view(request, pk):
-	test = Test.objects.get(pk=pk)
+	test = Test.objects.get(pk=pk) # ЧТО ЗА pk?!
 	data = {
 		'title': test.name,
 		'obj': test,
