@@ -22,7 +22,7 @@ urlpatterns = [
 	path('tests/<int:id_test>/<int:id_question>/answer_update/<int:id_answer>/', views.AnswerUpdateView.as_view(), name='answer_update'),
 	path('error/', views.error, name='error'),
 	#решение тестов
-	path('tests/<pk>/',views.test_view, name='test_view'),
-	path('tests/<pk>/data/',views.test_data_view, name='test_data_view'),
-	path('tests/<pk>/save/',views.save_test_view, name='save_test_view'),
+	path('tests/<pk>/', views.test_view, name='test_view'),
+	path('tests/<pk>/data/', views.test_data_view, name='test_data_view'),
+	path('tests/<pk>/save/', views.save_test_view, name='save_test_view'),
 ]
