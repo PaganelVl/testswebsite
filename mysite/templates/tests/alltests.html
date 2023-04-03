@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block content %}
+<!-- ToDo: сделать перенаправление на 404 -->
+<h1>Тесты</h1>
+<ol>
+{% for i in test %}
+    <li><b>{{ i.subject.name }}: </b><i>{{ i.teacher.surname }} {{ i.teacher.name }}{% if i.teacher.third_name == "" %}{% else %} {{ i.teacher.third_name }}{% endif %}.</i> <a href="{% url 'test_view' i.id %}">{{ i.name }}</a>. Время выполнения: {{ i.work_time }} мин. Количество вопросов: {{ i.questions_count }}. Сложность: {% if i.difficulty == "" %}не указано{% else %}{{ i.difficulty }}{% endif %}.</li>
+{% endfor %}
+</ol>
+{% endblock %}
