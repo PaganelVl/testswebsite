@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block content %}
+<!-- ToDo: сделать перенаправление на 404 -->
+{% for i in teacher %}
+{% if i.id == id_teacher %}
+    <h1>{{ i.surname }} {{ i.name }}{% if i.third_name == "" %}{% else %}{{ i.third_name }}{% endif %}. {{ i.department.name }}. Предметы</h1>
+{% endif %}
+{% endfor %}
+<ol>
+{% for j in subject %}
+{% if j.department_id == id_department %}
+{% if j.teacher_id == id_teacher %}
+    <li>{{ j.name }} — <a href="{% url 'tests' j.department_id j.teacher_id j.id %}">тесты</a></li>
+{% endif %}
+{% endif %}
+{% endfor %}
+</ol>
+{% endblock %}

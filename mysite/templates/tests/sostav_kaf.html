@@ -5,12 +5,12 @@
 <!-- ToDo: сделать перенаправление на 404 -->
 {% for i in department %}
 {% if i.id == id_department %}
-<h1>{{ i.name }} состав</h1>
+<h1>{{ i.name }}. Состав</h1>
 <table>
-<tr><th>ФИО преподавателя</th><th>Никнейм преподавателя</th></tr>
+<tr><th>ФИО преподавателя</th><th>Никнейм преподавателя</th><th>Предметы преподавателя</th></tr>
 {% for j in teacher %}
 {% if j.department_id == i.id %}
-<tr><td>{{ j.surname }} {{ j.name }} {{ j.third_name }}</td><td>{% if j.user == None %}Незарегистрирован{% else %}{{ j.user }}{% endif %}</td></tr>
+<tr><td>{{ j.surname }} {{ j.name }} {{ j.third_name }}</td><td>{% if j.user == None %}Незарегистрирован{% else %}{{ j.user }}{% endif %}</td><td><a href="{% url 'subjects' i.id j.id %}">Посмотреть</a></td></tr>
 {% endif %}
 {% endfor %}
 </table>
