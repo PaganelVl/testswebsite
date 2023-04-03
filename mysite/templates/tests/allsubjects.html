@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock title %}
+{% block content %}
+<table>
+    <tr><th>Предмет</th><th>Кафедра</th><th>Преподаватель</th><th>Тесты</th></tr>
+{% for i in subject %}
+    <tr><td>{{ i.name }}</td><td>{{ i.department.name }}</td><td>{{ i.teacher.surname }} {{ i.teacher.name }} {{ i.teacher.third_name }}</td><td><a href="{% url 'tests' i.department_id i.teacher_id i.id %}">Тесты</a></td></tr>
+{% endfor %}
+</table>
+{% endblock %}
