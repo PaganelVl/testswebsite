@@ -11,7 +11,7 @@
 <ol>
 {% for j in test %}
 {% if j.subject_id == id_subject %}
-    <li><i>{{ j.teacher.surname }} {{ j.teacher.name }}{% if j.teacher.third_name == "" %}{% else %}{{ j.teacher.third_name }}{% endif %}.</i> <a href="{% url 'test_view' j.id %}">{{ j.name }}</a>. Время выполнения: {{ j.work_time }} мин. Количество вопросов: {{ j.questions_count }}. Сложность: {% if j.difficulty == "" %}не указано{% else %}{{ j.difficulty }}{% endif %}.</li>
+    <li><i>{{ j.teacher.surname }} {{ j.teacher.name }}{% if j.teacher.third_name == "" %}{% else %} {{ j.teacher.third_name }}{% endif %}.</i> <a href="{% url 'test_view' j.id %}">{{ j.name }}</a>. Время выполнения: {{ j.work_time }} мин. Количество вопросов: {{ j.questions_count }}. Сложность: {% if j.difficulty == "" %}не указано{% else %}{{ j.difficulty }}{% endif %}.</li>
 {% endif %}
 {% endfor %}
 </ol>
