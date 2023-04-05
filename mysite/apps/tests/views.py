@@ -207,7 +207,7 @@ class AllSubjectsView(ListView):
 		return context
 
 
-class ProfileView(LoginRequiredMixin,ListView):
+class ProfileView(LoginRequiredMixin, ListView):
 	model = Teacher
 	template_name = 'tests/profile.html'
 
@@ -222,7 +222,7 @@ class ProfileView(LoginRequiredMixin,ListView):
 		return context
 
 
-class TestAddView(LoginRequiredMixin,CreateView):
+class TestAddView(LoginRequiredMixin, CreateView):
 	form_class = TestForm	
 	template_name = 'tests/test_add.html'
 
@@ -265,7 +265,7 @@ class TestAddView(LoginRequiredMixin,CreateView):
 					self.get_context_data(form=form))
 
 
-class TestUpdateView(LoginRequiredMixin,UpdateView):
+class TestUpdateView(LoginRequiredMixin, UpdateView):
 	form_class = TestForm
 	model = Test
 	template_name = 'tests/test_add.html'
@@ -300,8 +300,8 @@ class TestUpdateView(LoginRequiredMixin,UpdateView):
 		return reverse_lazy('questions_add', args = [self.kwargs['id_test']])
 
 
-class QuestionsAddView(LoginRequiredMixin,CreateView):
-	form_class = AnswerForm,QuestionForm
+class QuestionsAddView(LoginRequiredMixin, CreateView):
+	form_class = AnswerForm, QuestionForm
 	template_name = 'tests/questions_add.html'
 
 	def get_object(self):
