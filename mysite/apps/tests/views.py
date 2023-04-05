@@ -339,13 +339,13 @@ class QuestionsAddView(LoginRequiredMixin, CreateView):
 			num_a = 0
 
 			for z in range(count):
-				num_a+=1
+				num_a += 1
 				print(count)
 				self.object = form_answer[y].save(commit = False)				
 				self.object.question = Question.objects.all().last()
 				self.object.num = num_a
 				form_answer[y].save()
-				y+=1
+				y += 1
 
 		return form_question, form_answer
 
