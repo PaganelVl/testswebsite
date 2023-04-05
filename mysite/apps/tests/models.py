@@ -59,7 +59,7 @@ class Test(models.Model):
     name = models.CharField(max_length=50, verbose_name='Название теста')
     work_time = models.IntegerField(default=1, verbose_name='Время выполнения (мин)')
     questions_count = models.IntegerField(default=1, verbose_name='Количество вопросов')
-    # answer_count = models.IntegerField(default=1,verbose_name = 'Количество ответов на каждый вопрос')
+    answer_count = models.IntegerField(default=1,verbose_name = 'Количество ответов на каждый вопрос')
     low = models.IntegerField(default=1, verbose_name='Удовлетворительно')
     good = models.IntegerField(default=1, verbose_name='Хорошо')
     perfect = models.IntegerField(default=1, verbose_name='Отлично')

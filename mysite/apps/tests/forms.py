@@ -11,7 +11,7 @@ from django.forms.formsets import formset_factory
 class TestForm(ModelForm):
     class Meta:
         model = Test
-        # fields = ('department','teacher','subject', 'name', 'work_time', 'questions_count','answer_count', 'statisfactorily','good', 'perfect')
+        # fields = ('department', 'teacher', 'subject', 'name', 'work_time', 'questions_count', 'answer_count', 'statisfactorily', 'good', 'perfect')
         fields = '__all__'
 
         widgets = {
@@ -21,7 +21,7 @@ class TestForm(ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Название теста'}),
             'work_time': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Время выполнения (мин)'}),
             'questions_count':forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Количество вопросов'}),
-            # 'answer_count':forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Количество ответов на каждый вопрос'}),
+            'answer_count':forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Количество ответов на каждый вопрос'}),
             'low': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Удовлетворительно'}),
             'good': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Хорошо'}),
             'perfect': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Отлично'}),
