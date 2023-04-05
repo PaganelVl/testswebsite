@@ -247,7 +247,7 @@ class TestAddView(LoginRequiredMixin, CreateView):
 		# if self.object.questions_count > 1 and self.object.answer_count > 1:
 		self.object = form.save()
 
-		return redirect('questions_add',self.kwargs['id_test'])
+		return redirect('questions_add', self.kwargs['id_test'])
 		# else: 
 		# 	return redirect('error')
 
