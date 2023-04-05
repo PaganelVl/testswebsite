@@ -327,8 +327,9 @@ class QuestionsAddView(LoginRequiredMixin, CreateView):
 
 	def form_question_valid(self, form_question, form_answer):
 		num_q = 0
-		y = 0	
+		y = 0
 		z = 0
+
 		for f in form_question:
 			num_q+=1
 			self.object = f.save(commit = False)
