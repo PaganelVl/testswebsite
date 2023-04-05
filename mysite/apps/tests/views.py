@@ -347,7 +347,7 @@ class QuestionsAddView(LoginRequiredMixin, CreateView):
 				form_answer[y].save()
 				y+=1
 
-		return form_question,form_answer
+		return form_question, form_answer
 
 	def get(self, request, *args, **kwargs):
 		self.object = None	
@@ -358,16 +358,16 @@ class QuestionsAddView(LoginRequiredMixin, CreateView):
 		formset = FormsetAnswer(prefix = 'answer')
 	
 		return self.render_to_response(
-					self.get_context_data(form=form,formset = formset))
+					self.get_context_data(form=form, formset = formset))
 
 	def post(self, request, *args, **kwargs):
 		self.object = None
 		FormsetQuestion = self.get_formset(QuestionForm)
 		FormsetAnswer = self.get_formset(AnswerForm)
-		form = FormsetQuestion(request.POST,prefix = 'question')
-		formset = FormsetAnswer(request.POST,prefix = 'answer')
+		form = FormsetQuestion(request.POST, prefix = 'question')
+		formset = FormsetAnswer(request.POST, prefix = 'answer')
 			
-		if self.form_question_valid(form,formset):	
+		if self.form_question_valid(form, formset):	
 			print("fff")			
 			return redirect('test_update', self.kwargs['id_test'])
 		else:
@@ -375,7 +375,7 @@ class QuestionsAddView(LoginRequiredMixin, CreateView):
 		#return redirect('alltests')
 
 	def get_success_url(self):		
-		return reverse_lazy('test_update',args = [self.kwargs['id_test']])
+		return reverse_lazy('test_update', args = [self.kwargs['id_test']])
 
 
 class QuestionsUpdateView(LoginRequiredMixin,CreateView):
