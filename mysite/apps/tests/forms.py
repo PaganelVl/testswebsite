@@ -16,8 +16,8 @@ class TestForm(ModelForm):
 
         widgets = {
             'department': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Кафедра'}),
-            'teacher': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Преподаватель'}),
-            'subject': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Предмет'}),
+            'teacher': forms.Select(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Преподаватель'}),
+            'subject': forms.Select(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Предмет'}),
             'name': forms.TextInput(attrs={'class': 'form-control','placeholder': 'Название теста'}),
             'work_time': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Время выполнения (мин)'}),
             'questions_count':forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Количество вопросов'}),
