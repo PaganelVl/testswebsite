@@ -40,11 +40,11 @@ class QuestionForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'test': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название теста','hidden': True }),
-            'text': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Текст вопроса'}),
+            'test': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название теста', 'hidden': True }),
+            'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст вопроса'}),
             'weight': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Вес вопроса'}),
-            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер','hidden': True }),
-            'answer_count': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'количество ответов на данный вопрос','hidden': True }),           
+            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер', 'hidden': True}),
+            'answer_count': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'количество ответов на данный вопрос', 'hidden': True}),           
         }
 
     def __init__(self, *args, **kwargs):
@@ -60,7 +60,7 @@ class QuestionSetForm(ModelForm):
         fields = ('__all__')
 
 
-QuestionFormset = modelformset_factory(Question, form = QuestionForm, extra=0)     
+QuestionFormset = modelformset_factory(Question, form=QuestionForm, extra=0)     
 
 
 class AnswerForm(ModelForm):
@@ -68,12 +68,11 @@ class AnswerForm(ModelForm):
         model = Answer
         fields = '__all__'
 
-
         widgets = {
-            'question': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название вопроса','hidden': True }),
-            'text_answer': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Текст ответа'}),
-            'is_right': forms.CheckboxInput(attrs={ 'placeholder': 'Верно/Неверно'}),
-            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер','hidden': True }),               
+            'question': forms.Select(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Название вопроса', 'hidden': True}),
+            'text_answer': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст ответа'}),
+            'is_right': forms.CheckboxInput(attrs={'placeholder': 'Верно/Неверно'}),
+            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер', 'hidden': True}),               
         }
 
     def __init__(self, *args, **kwargs):
