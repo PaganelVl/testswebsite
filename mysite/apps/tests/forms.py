@@ -29,7 +29,7 @@ class TestForm(ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)       
+        super().__init__(*args, **kwargs)
         self.fields['department'].widget = forms.HiddenInput()
         self.fields['teacher'].widget = forms.HiddenInput()
 
@@ -43,9 +43,8 @@ class QuestionForm(ModelForm):
             'test': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название теста','hidden': True }),
             'text': forms.Textarea(attrs={'class': 'form-control','placeholder': 'Текст вопроса'}),
             'weight': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Вес вопроса'}),
-            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер','hidden': True }), 
-            'answer_count': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'количество ответов на данный вопрос','hidden': True }), 
-                        
+            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер','hidden': True }),
+            'answer_count': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'количество ответов на данный вопрос','hidden': True }),           
         }
 
     def __init__(self, *args, **kwargs):
