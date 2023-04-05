@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>Никнейм: <b>{{ user.get_username }}</b></p>
+{% for i in teacher %}
+{% if i.user_id == user.id %}
+<p><i>Фамилия: {{ i.surname }}</i></p>
+<p><i>Имя: {{ i.name }}</i></p>
+<p><i>Отчество: {% if i.third_name == "" %}нет{% else %}{{ i.third_name }}{% endif %}</i></p>
+<p><i>Кафедра: {% if i.department.name == "" %}не указано{% else %}<a href="{% url 'department' i.department_id %}">{{ i.department.name }}</a>{% endif %}</i></p>
+<h1>Предметы</h1>
+<ol>
+    {% for j in subject %}
+    {% if j.teacher_id == i.id %}
+        <li>{{ j.name }}</li>
+    {% endif %}
+    {% endfor %}
+</ol>
+<h1>Тесты</h1>
+<ul>
+    {% for k in test %}
+    {% for j in subject %}
+    {% if j.teacher_id == i.id %}
+    {% if k.subject_id == j.id %}
+        <li><a href="{% url 'test_view' k.id %}">{{ k.name }}</a>. Время выполнения: {{ k.work_time }} мин. Количество вопросов: {{ k.questions_count }}. Сложность: {% if k.difficulty == "" %}не указано{% else %}{{ k.difficulty }}{% endif %}. <b><a href="{% url 'test_update' k.id %}">Редактировать</a></b></li>
+    {% endif %}
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+    <li><a href="href="{% url 'test_add' %}""><button>Добавить тест</button></a></li>
+</ul>
+{% endif %}
+{% endfor %}
+{% endblock content %}
