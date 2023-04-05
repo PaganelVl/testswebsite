@@ -32,7 +32,6 @@ class TestForm(ModelForm):
         super().__init__(*args, **kwargs)       
         self.fields['department'].widget = forms.HiddenInput()
         self.fields['teacher'].widget = forms.HiddenInput()
-        self.fields['subject'].widget = forms.HiddenInput()
 
 
 class QuestionForm(ModelForm):
