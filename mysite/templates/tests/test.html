@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ obj.subject.name }}. Тест на тему «{{ obj.name }}».</h1>
+<p>Автор <i>{{ obj.teacher.surname }} {{ obj.teacher.name }}{% if obj.teacher.third_name == "" %}{% else %} {{ obj.teacher.third_name }}{% endif %}.</i></p>
+<p>Время выполнения: {{ obj.work_time }} мин.</p>
+<p>Количество вопросов: {{ obj.questions_count }}.</p>
+<p>Сложность: {% if obj.difficulty == "" %}<i>не указано</i>{% else %}{{ obj.difficulty }}{% endif %}.</p>
+
+{% endblock content %}
