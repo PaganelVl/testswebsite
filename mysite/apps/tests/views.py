@@ -462,10 +462,10 @@ class QuestionsUpdateView(LoginRequiredMixin,CreateView):
 	# 	return form
 
 	def get_success_url(self):		
-		return reverse_lazy('test_update',args = [self.kwargs['id_test']])
+		return reverse_lazy('test_update', args = [self.kwargs['id_test']])
 
     
-class QuestionAddView(LoginRequiredMixin,CreateView):
+class QuestionAddView(LoginRequiredMixin, CreateView):
 	form_class = QuestionForm	
 	template_name = 'tests/question_add.html'
 
