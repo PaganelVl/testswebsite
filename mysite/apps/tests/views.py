@@ -301,7 +301,8 @@ class TestUpdateView(LoginRequiredMixin, UpdateView):
 
 
 class QuestionsAddView(LoginRequiredMixin, CreateView):
-	form_class = AnswerForm, QuestionForm
+	question_form_class = QuestionForm
+	answer_form_class = AnswerForm
 	template_name = 'tests/questions_add.html'
 
 	def get_object(self):
@@ -322,6 +323,8 @@ class QuestionsAddView(LoginRequiredMixin, CreateView):
 		context['title'] = 'Создание вопросов'	
 		context['id_test'] = self.kwargs['id_test']
 		context['test'] = Test.objects.filter(pk = self.kwargs['id_test']).first()
+		context['question_form'] = self.question_form_class
+		context['answer_form'] = self.answer_form_class
 
 		return context
 
