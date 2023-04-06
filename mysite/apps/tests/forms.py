@@ -40,18 +40,16 @@ class QuestionForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'test': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название теста', 'hidden': True }),
+            'test': forms.Select(attrs={'class': 'form-control', 'rows': 5,'placeholder': 'Название теста'}),
             'text': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст вопроса'}),
             'weight': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Вес вопроса'}),
-            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер', 'hidden': True}),
-            'answer_count': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'количество ответов на данный вопрос', 'hidden': True}),           
+            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер'}),
         }
 
     def __init__(self, *args, **kwargs):
         super(QuestionForm, self).__init__(*args, **kwargs)
         # self.fields['num'].widget = forms.HiddenInput()
         # self.fields['test'].widget = forms.HiddenInput()
-        # self.fields['answer_count'].widget = forms.HiddenInput()
 
         
 class QuestionSetForm(ModelForm):
@@ -69,10 +67,10 @@ class AnswerForm(ModelForm):
         fields = '__all__'
 
         widgets = {
-            'question': forms.Select(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Название вопроса', 'hidden': True}),
+            'question': forms.Select(attrs={'class': 'form-control', 'rows': 5, 'placeholder': 'Название вопроса'}),
             'text_answer': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Текст ответа'}),
             'is_right': forms.CheckboxInput(attrs={'placeholder': 'Верно/Неверно'}),
-            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер', 'hidden': True}),               
+            'num': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Порядковый номер'}),               
         }
 
     def __init__(self, *args, **kwargs):
