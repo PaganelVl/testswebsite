@@ -272,11 +272,12 @@ class TestUpdateView(LoginRequiredMixin, UpdateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['title'] = 'Редактирование теста'		
+		context['title'] = 'Редактирование теста'
 		context['test'] = Test.objects.filter(pk = self.kwargs['id_test']).first()
 		context['question'] = Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first())
-		context['subjects'] = Subject.objects.filter(name = self.get_object().subject)	
-		context['answer'] = Answer.objects.order_by('id')		
+		context['subjects'] = Subject.objects.filter(name = self.get_object().subject)
+		context['answer'] = Answer.objects.order_by('id')
+
 		if Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first()).exists() == False:
 			context['last_question'] = 0
 		elif Question.objects.filter(test = Test.objects.filter(pk = self.kwargs['id_test']).first()).exists() == True:
