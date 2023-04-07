@@ -1,9 +1,6 @@
 from django import forms
-from .models import Department, Teacher, Subject, Test, Question, Answer, Result
-from django.forms import ModelForm, TextInput, NumberInput, ModelChoiceField, Textarea
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic.edit import CreateView
-from django.contrib.auth.forms import AuthenticationForm
+from .models import Test, Question, Answer
+from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.forms.formsets import formset_factory
 
