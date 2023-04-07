@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- ToDo: сделать перенаправление на 404 -->
 {% for i in department %}
 {% if i.id == id_department %}
 <h1>{{ i.name }}. Состав</h1>

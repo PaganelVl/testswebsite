@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- ToDo: сделать перенаправление на 404 -->
 {% for i in teacher %}
 {% if i.id == id_teacher %}
     <h1>{{ i.surname }} {{ i.name }}{% if i.third_name == "" %}{% else %}{{ i.third_name }}{% endif %}. {{ i.department.name }}. Предметы</h1>
