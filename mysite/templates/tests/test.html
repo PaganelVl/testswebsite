@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <h1>{{ obj.subject.name }}. Тест на тему «{{ obj.name }}».</h1>
-<p>Автор <i>{{ obj.teacher.surname }} {{ obj.teacher.name }}{% if obj.teacher.third_name == "" %}{% else %} {{ obj.teacher.third_name }}{% endif %}.</i></p>
-<p>Время выполнения: {{ obj.work_time }} мин.</p>
-<p>Количество вопросов: {{ obj.questions_count }}.</p>
-<p>Сложность: {% if obj.difficulty == "" %}<i>не указано</i>{% else %}{{ obj.difficulty }}{% endif %}.</p>
+<p id="author">Автор <i>{{ obj.teacher.surname }} {{ obj.teacher.name }}{% if obj.teacher.third_name == "" %}{% else %} {{ obj.teacher.third_name }}{% endif %}.</i></p>
+<p id="work_time">Время выполнения: {{ obj.work_time }} мин.</p>
+<p id="questions_count">Количество вопросов: {{ obj.questions_count }}.</p>
+<p id="difficulty">Сложность: {% if obj.difficulty == "" %}<i>не указано</i>{% else %}{{ obj.difficulty }}{% endif %}.</p>
 
+<div id="btn_data_block"><button id="data">Пройти тест</button></div>
+
+<div id="test_form"></div>
+
+<script type="text/javascript">
+	var dataUrl = '{% url 'test_data_view' obj.id %}';
+	var csrfToken = '{% csrf_token %}';
+</script>
+<script src="{% static 'js/test_data.js' %}"></script>
 {% endblock content %}
